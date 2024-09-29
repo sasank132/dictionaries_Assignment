@@ -25,6 +25,34 @@ def process_customer_request(menu, request_code, quantity):
     print(f"Item {request_code} not found on the menu.")
     return False
 
+# Update an existing menu item (either price or name)
+def update_menu_item(menu, code, field, new_value):
+    for item in menu:
+        if item['code'] == code:
+            if field == 'name':
+                item['name'] = new_value
+            elif field == 'price':
+                item['price'] = int(new_value)
+            print(f"{code} updated: {field} changed to {new_value}")
+            return True
+    print(f"Item {code} not found.")
+    return False
+
+# Add a new menu item
+def add_menu_item(menu, code, name, price, stock):
+    new_item = {"code": code, "name": name, "price": int(price), "stock": int(stock)}
+    menu.append(new_item)
+    print(f"Added new item: {new_item}")
+
+# Remove an item from the menu
+def remove_menu_item(menu, code):
+    for item in menu:
+        if item['code'] == code:
+            menu.remove(item)
+            print(f"Removed item: {code}")
+            return True
+    print(f"Item {code} not found.")
+    return False
 
 # Display the menu items
 def display_menu(menu):

@@ -14,6 +14,7 @@ def show_main_menu():
         print('N - Start a new order')
         print('C - Change the current order')
         print('X - Close the order and print the check')
+        print('M - Manager Menu')
         print('R - Reset the order')
         print('Q - Quit')
         
@@ -40,6 +41,8 @@ def show_main_menu():
         elif user_menu_choice == 'R':
             print("Resetting the current order...")
             current_order = []
+        elif user_menu_choice in 'Mm':
+            manager_menu()
         else:
             print("Invalid choice. Please choose a valid option.")
 
@@ -69,6 +72,38 @@ def print_check(current_order):
     print(f"Tax (7%): ${tax:.2f}")
     print(f"Grand Total: ${grand_total:.2f}")
     print("\nThank you for dining at Sasank's Diner!")
+
+def manager_menu():
+    while True:
+        print("\nManager Menu:")
+        print("1. Update a menu item")
+        print("2. Add a new menu item")
+        print("3. Remove a menu item")
+        print("4. Display menu")
+        print("5. Return to main menu")
+        choice = input("Choose an option: ")
+
+        if choice == '1':
+            code = input("Enter item code: ")
+            field = input("What do you want to update (name/price)? ").lower()
+            new_value = input(f"Enter new {field}: ")
+            functions.update_menu_item(data.menu_dict, code, field, new_value)
+        elif choice == '2':
+            code = input("Enter new item code: ")
+            name = input("Enter item name: ")
+            price = input("Enter item price: ")
+            stock = input("Enter item stock: ")
+            functions.add_menu_item(data.menu_dict, code, name, price, stock)
+        elif choice == '3':
+            code = input("Enter item code to remove: ")
+            functions.remove_menu_item(data.menu_dict, code)
+        elif choice == '4':
+            functions.display_menu(data.menu_dict)
+        elif choice == '5':
+            break
+        else:
+            print("Invalid choice, please try again.")
+
 
 def change_order(current_order):
     """
