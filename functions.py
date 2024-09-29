@@ -54,6 +54,20 @@ def remove_menu_item(menu, code):
     print(f"Item {code} not found.")
     return False
 
+def take_customer_request(menu):
+    request_code = input("Enter the code of the item you want to order: ").upper()
+    quantity = input(f"Enter the quantity of {request_code} you want to order: ")
+
+    if not quantity.isdigit():
+        print("Invalid quantity. Please enter a number.")
+        return
+
+    quantity = int(quantity)
+    
+    if not process_customer_request(menu, request_code, quantity):
+        print("Order could not be processed.")
+    else:
+        print(f"{quantity} {request_code} successfully ordered.")
 # Display the menu items
 def display_menu(menu):
     for item in menu:
